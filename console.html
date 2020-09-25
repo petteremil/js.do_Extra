@@ -1,0 +1,19 @@
+<label for="tb">Console<br/><textarea id="tb" style="height:500px;width:500px;"></textarea></label>
+
+<script>
+	function printNl(text){
+    	var tb = document.getElementById("tb");
+        if(tb){
+        	if(typeof(text) === 'object'){
+            	text = JSON.stringify(text);
+            }
+        	var currentVal = tb.value;
+            if(currentVal === ''){
+            	currentVal += text.toString();
+            }else{
+            	currentVal += '\r\n' + text.toString();
+            }            
+            tb.value = currentVal;
+        }
+    }
+</script>
