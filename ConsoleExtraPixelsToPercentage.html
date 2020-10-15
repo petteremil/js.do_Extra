@@ -1,0 +1,47 @@
+<label for="tb">Console<br/><textarea id="tb" style="height:500px;width:500px;"></textarea></label>
+
+<script>
+	function printNl(text){
+    	var tb = document.getElementById("tb");
+        if(tb){
+        	if(typeof(text) === 'object'){
+            	text = JSON.stringify(text);
+            }
+        	var currentVal = tb.value;
+            if(currentVal === ''){
+            	currentVal += text.toString();
+            }else{
+            	currentVal += '\r\n' + text.toString();
+            }            
+            tb.value = currentVal;
+        }
+    }
+    
+    
+    var vidder = [{pixels:28},{pixels:55},{pixels:30},{pixels:280},{pixels:400},{pixels:150},{pixels:40},{pixels:28}];
+    var sum = 0;
+    var prosentSum = 0;
+    
+    vidder.forEach(function(vidde){
+    	sum += vidde.pixels;
+    });
+    
+    
+    
+    vidder.forEach(function(vidde){
+    	vidde.prosent = parseFloat(((vidde.pixels/sum)*100).toFixed(1));
+    });
+    
+    //printNl(vidder);
+    
+    vidder.forEach(function(vidde){
+    	prosentSum += vidde.prosent;
+    });
+    
+    vidder.forEach(function(vidde){
+    	printNl(vidde.pixels + "px : " + vidde.prosent + "%");
+    });
+     printNl("Pixel total: " + sum);
+     printNl("Prosent total: " + prosentSum);
+    
+</script>
