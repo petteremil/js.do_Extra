@@ -1,0 +1,73 @@
+<label for="tb">Console<br/><textarea id="tb" style="height:500px;width:500px;"></textarea></label>
+
+<script>
+	function printNl(text){
+    	var tb = document.getElementById("tb");
+        if(tb){
+        	if(typeof(text) === 'object'){
+            	text = JSON.stringify(text);
+            }
+        	var currentVal = tb.value;
+            if(currentVal === ''){
+            	currentVal += text.toString();
+            }else{
+            	currentVal += '\r\n' + text.toString();
+            }            
+            tb.value = currentVal;
+        }
+    }
+    
+    let tbl = {
+    	tableName: 'atbl_Fare_ErfaringsfarerReferanser',
+        fields: [
+        'ID', 
+        '', 
+        '', 
+        ],
+        excludeFields: ['ID'],
+        words: ['test', 'Test']
+    }
+    
+    function generateTopTen(){
+    	printNl('SELECT TOP 10 * FROM ' + tbl.tableName);
+    }
+    
+    function generateFindWithWords(){
+    	var selector = '';
+        tbl.fields.forEach(function(word, index){
+        	selector += word;
+            if(index < tbl.fields.length-1){
+            	selector += ', ';
+            }
+        });
+    	printNl('SELECT '+selector+' FROM ' + tbl.tableName);
+        var where = 'WHERE '
+        tbl.fields.forEach(function(word, wordIndex){
+        	let clause = '';
+        	if(!tbl.excludeFields.includes(word)){
+            	tbl.words.forEach(function(w, wIndex){
+                	clause += (word + " LIKE '%" + w + "%'")
+                    if(wIndex < tbl.words.length-1){
+            			clause += ' OR ';
+                    }
+                });
+            }
+            
+            if(wordIndex < tbl.fields.length-1 && !tbl.excludeFields.includes(word)){
+            	clause += ' OR ';
+            }
+            
+            if(!tbl.excludeFields.includes(word)){
+            	where += clause + '\n';
+            }
+            
+        });
+        
+        printNl(where);
+    }
+    
+    generateTopTen();
+    generateFindWithWords();
+    
+    
+</script>
