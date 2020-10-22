@@ -18,11 +18,11 @@
     }
     
     let tbl = {
-    	tableName: 'atbl_Fare_ErfaringsfarerReferanser',
+    	tableName: '',
         fields: [
         'ID', 
         '', 
-        '', 
+        ''
         ],
         excludeFields: ['ID'],
         words: ['test', 'Test']
@@ -33,31 +33,39 @@
     }
     
     function generateFindWithWords(){
+    	tbl.fields = tbl.fields.filter(Boolean)
     	var selector = '';
         tbl.fields.forEach(function(word, index){
-        	selector += word;
-            if(index < tbl.fields.length-1){
-            	selector += ', ';
+        	if(word !== ''){
+            	selector += word;
+            	if(index < tbl.fields.length-1){
+            		selector += ', ';
+            	}
             }
         });
     	printNl('SELECT '+selector+' FROM ' + tbl.tableName);
-        var where = 'WHERE '
-        tbl.fields.forEach(function(word, wordIndex){
+        
+        var where = ''; 
+        if(tbl.fields.length > tbl.excludeFields.length){
+        	where = 'WHERE '
+        }
+        tbl.fields.forEach(function(field, wordIndex){
         	let clause = '';
-        	if(!tbl.excludeFields.includes(word)){
+            let exclude = tbl.excludeFields.includes(field) || field === '';
+        	if(!exclude){
             	tbl.words.forEach(function(w, wIndex){
-                	clause += (word + " LIKE '%" + w + "%'")
+                	clause += (field + " LIKE '%" + w + "%'")
                     if(wIndex < tbl.words.length-1){
             			clause += ' OR ';
                     }
                 });
             }
             
-            if(wordIndex < tbl.fields.length-1 && !tbl.excludeFields.includes(word)){
+            if(wordIndex < tbl.fields.length-1 && !exclude){
             	clause += ' OR ';
             }
             
-            if(!tbl.excludeFields.includes(word)){
+            if(!exclude){
             	where += clause + '\n';
             }
             
