@@ -1,0 +1,49 @@
+<!-- Obs, handles fungerer sånn ish, er noe kødd med referanser tipper jeg, har sikkert med duplikat id å gjøre -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Slider - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".slider" ).slider({
+    values: [ 5, 10, 15, 20, 25 ],
+       min: 1,
+       max: 30,
+       step: 1,
+    });
+    var farger = ["#d4bd0f","#31ba0f","#d4bd0f","#0f2eba","#0f2eba",
+    "#d4bd0f","#31ba0f","#d4bd0f","#0f2eba","#0f2eba",
+    "#d4bd0f","#31ba0f","#d4bd0f","#0f2eba","#0f2eba",
+    "#d4bd0f","#31ba0f","#d4bd0f","#0f2eba","#0f2eba"];
+    $(".ui-slider-handle").each(function(i, handle){
+    	console.log(handle);
+    	handle.style.backgroundColor = farger[i];
+    });
+    
+    
+    
+  } );
+  
+  
+  </script>
+</head>
+<body>
+
+<label>Work plan</label>
+<div id="slider" class="slider"></div>
+<label>Team plan</label>
+<div id="slider" class="slider"></div>
+<label>Week Plan</label>
+<div id="slider" class="slider"></div>
+<label>Lookout plan</label>
+<div id="slider" class="slider"></div>
+ 
+ 
+</body>
+</html>
